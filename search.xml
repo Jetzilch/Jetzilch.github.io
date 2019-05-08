@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[大数据的统计学基础笔记]]></title>
+    <url>%2F2019%2F05%2F08%2F%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[20190508:]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>统计学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[大数据的统计学基础笔记]]></title>
+    <url>%2F2019%2F05%2F08%2F%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%AC%AC1%E5%91%A8%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[20190508:]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>统计学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Git基础教程]]></title>
     <url>%2F2019%2F05%2F05%2FGit%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[Git 简易实用教程 for Mac1.git安装git官网下载后傻瓜式安装，安装完毕后打开终端输入“git”，回车，输出一大段介绍并且没有报错，说明安装成功 2.建立第一个版本库Repository打开终端， cd ~/desktop/jetzilch #jetzilch文件夹应当已经存在。 git config -global user.name”jetzilch” #设置用户名 git config -global user.email”**@qq.com” #设置用户email git init #在jetzlich文件夹中生成.git隐藏文件夹，在文件夹中使用“command+shift+.”显示隐藏文件夹 ls -a #在终端中输入此命令显示所在文件夹中的所有文件（包括隐藏文件） touch 1.py #新建1.py文件 git status #显示“untracked files”，此时的1.py文件没有被放入版本库（unstaged） git add 1.py #git add . ##把所有内容放入版本库 git status #显示“changes to be committed”,此时1.py已经放入版本库（staged） git commit -m “create 1.py” #commit表示提交这一次“修改”，提交的是修改而不是文件。 3.记录修改log&amp;diffgit log #显示之前所有commit的修改信息 我们对1.py文件进行修改： ··· a = 1 ··· git status #显示“modified”，此时修改的内容还没有被add和commit git add 1.py git commit -m “change 1” git log 我们对1.py文件进行修改： ··· a = 2 b = 1 ··· git diff #查看修改完后但未add的内容与上次commit后的内容的对比（查看staged） git diff —cached #修改完后add完成与上次commit后的内容的对比（查看unstaged） git diff HEAD #查看staged与unstaged git add . git commit -m “change 2” 4.回到从前reset4.1 修改已commit的版本 刚刚我们已经提交了一个commit（change 2），现在我们要添加另一个文件2.py，讲这个修改也commit进change 2 touch 2.py #这里只是新建了2.py文件，为了下面步骤的进行，需手动把1.py内的内容复制到2.py中，此处不再赘述 git add 2.py git commit —amend —no-edit #”—no-edit”:不编辑，直接合并到上一个commit git log —oneline #”—oneline”:每个commit内容显示在一行 4.2 reset到add之前 对1.py进行修改： ··· d = 3 ··· #add到staged再返回到add之前 git add 1.py git status -s #”-s”:缩写status的显示内容 git rest 1.py git status -s 4.3 reset到commit之前 git reset —hard HEAD #不管我们之前有没有做了一些add工作，这一步都会让我们回到最近的commit，在这个案例里是change 2 git log —oneline #回到change 1（两种方法） #方法1 git reset —hard HEAD^ #方法2 git reset —hard 9881585(change 1的id) git log —oneline #上述方式会导致change 2消失，想要恢复消失的change 2，可以使用reflog git reflog #显示最近HEAD的所有改动 #重复reset步骤就能回到change 2 git reset —hard 3faa921 5.回到从前（checkout针对单个文件）git log —oneline git checkout 9881585 — 1.py #将1.py文件恢复到change 1的状态（9881585为change 1的id） #此时的1.py里只有change 1的内容（a = 1），我们在1.py加上一行内容“# I went back to change 1”，然后add，commit 1.py git add 1.py git commit -m “back to change 1 and add commit for 1.py” git log —oneline 6.分支（branch）6.1 使用branch创建dev分支 git log —oneline —graph #观看分支，即log的最左边会显示*路线 git branch dev #创建dev分支 git branch #查看当前分支，*显示的是当前所在的分支 git checkout dev #切换到dev分支 git branch 创建和切换到新建的分支可以合成一步：git checkout -b dev git branch -d dev #删除dev分支 6.2 将dev的修改推送到master git commit -am “change 3 in dev” #”-am”:add所有改变并直接commit git checkout master #切换到master分支 git merge dev #将dev merge到master git log —oneline —graph 上述merge方式在log中不会有分支图案，可以采取—no-f保留 git merge —no-f -m”keep merge info” dev #保留merge信息 git log —oneline —graph 7.分支冲突merge在不同分支进行编辑，然后mege，系统会提示冲突，并在文件中把冲突的地方标示出来，在文件中修改后，再提交保存就行。 8.分支冲突rebase按照莫烦git里的讲解，有空再补充。 9.临时修改stash有空补充 10.github在线代码管理有空补充]]></content>
