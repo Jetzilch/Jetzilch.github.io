@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[javaday08]]></title>
     <url>%2F2019%2F07%2F19%2Fjavaday08%2F</url>
-    <content type="text"><![CDATA[一、如何制作帮助文档（了解）###1.零散知识点1.1在同一个文件夹下，类定义在两个文件中和定义在一个文件中其实是一样的。1.2把构造方法私有，外界就不能再创建该类的对象了。二、通过jdk提供的api学习了Math类（掌握）三、代码块（掌握）四、继承（掌握）]]></content>
+    <content type="text"><![CDATA[一、如何制作帮助文档（了解）1.零散知识点1.1在同一个文件夹下，类定义在两个文件中和定义在一个文件中其实是一样的。1.2把构造方法私有，外界就不能再创建该类的对象了。2.练习 二、通过jdk提供的api学习了Math类（掌握）1.猜数字小游戏12345678910111213141516171819import java.util.Scanner;public class GuessNumber &#123; public static void main(String[] args) &#123; int number = (int)(Math.random()*100+1); Scanner sc = new Scanner(System.in); while(true) &#123; System.out.println(&quot;请输入你猜的数字：&quot;); int guessNumber = sc.nextInt(); if(guessNumber &gt; number) &#123; System.out.println(&quot;你输入的数字大了&quot;); &#125;else if(guessNumber &lt; number) &#123; System.out.println(&quot;你输入的数字小了&quot;); &#125;else &#123; System.out.println(&quot;恭喜你猜对了&quot;); break; &#125; &#125; &#125;&#125; 三、代码块（掌握）1.局部代码块位置：局部位置（方法内）作用：限定变量生命周期，及早释放，提高内存利用率。 2.构造代码块位置：类中的成员位置，用{}括起来的代码。作用：每次调用构造方法执行前，都会先执行构造代码块。可以把多个构造方法中的共同代码放到一起，对对象进行初始化。 3.静态代码块位置：在类中的成员位置，用{}括起来的代码，只不过用static修饰了。作用：一般是对类进行初始化。 面试题静态代码块、构造代码块、构造方法的执行顺序：静态代码块–构造代码块–构造方法只执行一次–每次调用构造方法都执行 四、继承（掌握）]]></content>
       <categories>
         <category>技能</category>
       </categories>
