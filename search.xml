@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[javaday08]]></title>
     <url>%2F2019%2F07%2F19%2Fjavaday08%2F</url>
-    <content type="text"><![CDATA[一、如何制作帮助文档（了解）1.零散知识点1.1在同一个文件夹下，类定义在两个文件中和定义在一个文件中其实是一样的。1.2把构造方法私有，外界就不能再创建该类的对象了。二、通过jdk提供的api学习了Math类（掌握）三、代码块（掌握）四、继承（掌握）]]></content>
+    <content type="text"><![CDATA[一、如何制作帮助文档（了解）###1.零散知识点1.1在同一个文件夹下，类定义在两个文件中和定义在一个文件中其实是一样的。1.2把构造方法私有，外界就不能再创建该类的对象了。二、通过jdk提供的api学习了Math类（掌握）三、代码块（掌握）四、继承（掌握）]]></content>
       <categories>
         <category>技能</category>
       </categories>
