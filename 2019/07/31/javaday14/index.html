@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入查看密码') !== ''){
+                alert('密码错误，请询问博主');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <meta name="description" content="一、正则表达式1.正则表达式概述正则表达式：符合一定规则的字符串 2.正则表达式的组成规则2.1字符x 字符x 举例：’a’表示字符a\ 反斜线字符\n 换行\r 回车符 2.2字符类[abc] a、b或c(简单类)三者选一[^abc] 任何字符，除了a，b，c[a-zA-Z] a到z或A到z，两头的字母包括在内(范围)[0-9] 0到9的字符都包括。同时还可以[x-y],x，y为任意个位数。 2">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaday14">
+<meta property="og:url" content="http://jetzilch.com/2019/07/31/javaday14/index.html">
+<meta property="og:site_name" content="Jetzilch">
+<meta property="og:description" content="一、正则表达式1.正则表达式概述正则表达式：符合一定规则的字符串 2.正则表达式的组成规则2.1字符x 字符x 举例：’a’表示字符a\ 反斜线字符\n 换行\r 回车符 2.2字符类[abc] a、b或c(简单类)三者选一[^abc] 任何字符，除了a，b，c[a-zA-Z] a到z或A到z，两头的字母包括在内(范围)[0-9] 0到9的字符都包括。同时还可以[x-y],x，y为任意个位数。 2">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-02T09:02:16.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaday14">
+<meta name="twitter:description" content="一、正则表达式1.正则表达式概述正则表达式：符合一定规则的字符串 2.正则表达式的组成规则2.1字符x 字符x 举例：’a’表示字符a\ 反斜线字符\n 换行\r 回车符 2.2字符类[abc] a、b或c(简单类)三者选一[^abc] 任何字符，除了a，b，c[a-zA-Z] a到z或A到z，两头的字母包括在内(范围)[0-9] 0到9的字符都包括。同时还可以[x-y],x，y为任意个位数。 2">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://jetzilch.com/2019/07/31/javaday14/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>javaday14 | Jetzilch</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Jetzilch" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jetzilch</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jetzilch.com/2019/07/31/javaday14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jetzilch">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/jet.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jetzilch">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javaday14
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-31 12:59:51" itemprop="dateCreated datePublished" datetime="2019-07-31T12:59:51+08:00">2019-07-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-02 17:02:16" itemprop="dateModified" datetime="2019-08-02T17:02:16+08:00">2019-08-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、正则表达式"><a href="#一、正则表达式" class="headerlink" title="一、正则表达式"></a>一、正则表达式</h2><h3 id="1-正则表达式概述"><a href="#1-正则表达式概述" class="headerlink" title="1.正则表达式概述"></a>1.正则表达式概述</h3><p>正则表达式：符合一定规则的字符串</p>
+<h3 id="2-正则表达式的组成规则"><a href="#2-正则表达式的组成规则" class="headerlink" title="2.正则表达式的组成规则"></a>2.正则表达式的组成规则</h3><h4 id="2-1字符"><a href="#2-1字符" class="headerlink" title="2.1字符"></a>2.1字符</h4><p>x 字符x 举例：’a’表示字符a<br>\ 反斜线字符<br>\n 换行<br>\r 回车符</p>
+<h4 id="2-2字符类"><a href="#2-2字符类" class="headerlink" title="2.2字符类"></a>2.2字符类</h4><p>[abc] a、b或c(简单类)三者选一<br>[^abc] 任何字符，除了a，b，c<br>[a-zA-Z] a到z或A到z，两头的字母包括在内(范围)<br>[0-9] 0到9的字符都包括。同时还可以[x-y],x，y为任意个位数。</p>
+<h4 id="2-3预定义字符类"><a href="#2-3预定义字符类" class="headerlink" title="2.3预定义字符类"></a>2.3预定义字符类</h4><p>. 任何字符。 我的就是.字符本身怎么表示？ .<br>\d 数字:[0-9]<br>\D 非数字:[^0-9]<br>\w 单词字符:[a-zA-Z_0-9] 在正则表达式里面组成单词的东西必须有这些东西组成</p>
+<h4 id="2-4边界匹配器"><a href="#2-4边界匹配器" class="headerlink" title="2.4边界匹配器"></a>2.4边界匹配器</h4><p>^ 行的开头<br>$ 行的结尾<br>\b 单词边界：就是不是单词的地方。 举例：hello world?haha;xixi</p>
+<h4 id="2-5数量词"><a href="#2-5数量词" class="headerlink" title="2.5数量词"></a>2.5数量词</h4><p>X? X,一次或一次也没有<br>X* 零次或多次(包括1次)<br>X+ 一次或多次<br>X{n} 恰好n次<br>X{n,} 至少n次<br>X{n,m} 至少n次，但不超过m次</p>
+<h3 id="3-正则表达式的应用"><a href="#3-正则表达式的应用" class="headerlink" title="3.正则表达式的应用"></a>3.正则表达式的应用</h3><h4 id="3-1判断功能"><a href="#3-1判断功能" class="headerlink" title="3.1判断功能"></a>3.1判断功能</h4><p>String类的public boolean matches(String regex):判断字符串是否符合规定的正则表达式<br>案例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class RgexDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入你的手机号码：&quot;);</span><br><span class="line">		String phoneNumber = sc.nextLine();</span><br><span class="line">		</span><br><span class="line">		//定义手机号的规则</span><br><span class="line">		String regex = &quot;[1][38]\\d&#123;9&#125;&quot;;</span><br><span class="line">		</span><br><span class="line">		while(!phoneNumber.matches(regex)) &#123;</span><br><span class="line">			System.out.println(&quot;您输入的手机号码有误，请重新输入:&quot;);</span><br><span class="line">			phoneNumber = sc.nextLine();</span><br><span class="line">		&#125; </span><br><span class="line">		System.out.println(&quot;您输入的是正确的手机号码，正好在登陆，请稍等...&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>练习：<br>1.<br>校验邮箱，测试的邮箱名如下<br><a href="mailto:1517806580@qq.com" target="_blank" rel="noopener">1517806580@qq.com</a><br><a href="mailto:liuyi@163.com" target="_blank" rel="noopener">liuyi@163.com</a><br><a href="mailto:linqingxia@126.com" target="_blank" rel="noopener">linqingxia@126.com</a><br><a href="mailto:fengqingyang@sina.com.cn" target="_blank" rel="noopener">fengqingyang@sina.com.cn</a><br><a href="mailto:fqy@itcast.cn" target="_blank" rel="noopener">fqy@itcast.cn</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class RegexTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入需要校验的邮箱：&quot;);</span><br><span class="line">		String email = sc.nextLine();</span><br><span class="line">		</span><br><span class="line">		//创建正则表达式</span><br><span class="line">		//String regex = &quot;[a-zA-Z_0-9]+@[a-zA-Z_0-9]&#123;2,6&#125;(\\.[a-zA-Z_0-9]&#123;2,3&#125;)+&quot;;</span><br><span class="line">		//简化</span><br><span class="line">		String regex = &quot;\\w+@\\w&#123;2,6&#125;(\\.\\w&#123;2,3&#125;)+&quot;;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		boolean flag = email.matches(regex);</span><br><span class="line">		System.out.println(&quot;eamilresult:&quot;+flag);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-2分割功能"><a href="#3-2分割功能" class="headerlink" title="3.2分割功能"></a>3.2分割功能</h4><p>String类的public String[] split(String regex)<br>案例：百合网年龄范围选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class RegexDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//创建字符串接收年龄范围限制词条</span><br><span class="line">		String age = &quot;18---24&quot;;</span><br><span class="line">		</span><br><span class="line">		//定义正则表达式</span><br><span class="line">		String regex = &quot;-+&quot;;</span><br><span class="line">		</span><br><span class="line">		//调用分割功能提取年龄</span><br><span class="line">		String[] strArr = age.split(regex);</span><br><span class="line">		int startAge = Integer.parseInt(strArr[0]);</span><br><span class="line">		int endAge = Integer.parseInt(strArr[1]);</span><br><span class="line">		</span><br><span class="line">		//键盘录入年龄，并通过年龄判断是否符合标准</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入你的年龄：&quot;);</span><br><span class="line">		int a = sc.nextInt();</span><br><span class="line">		if(a&lt;startAge) &#123;</span><br><span class="line">			System.out.println(&quot;你还小，好好学习&quot;);</span><br><span class="line">		&#125;else if(a&gt;endAge) &#123;</span><br><span class="line">			System.out.println(&quot;我还是叫你姐姐吧&quot;);</span><br><span class="line">		&#125;else &#123;</span><br><span class="line">			System.out.println(&quot;符合要求，对方正在向你的位置赶来...&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>练习：<br>1.<br>分割功能练习:提取aa，bb，cc和文件路径<br>aa,bb,cc<br>aa.bb.cc<br>aa   bb          cc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public class RegexTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 定义一个字符串</span><br><span class="line">		String str1 = &quot;aa,bb,cc&quot;;</span><br><span class="line">		// 定义正则表达式</span><br><span class="line">		String regex1 = &quot;,&quot;;</span><br><span class="line">		String[] strArr1 = str1.split(regex1);</span><br><span class="line">		for (int x = 0; x &lt; strArr1.length; x++) &#123;</span><br><span class="line">			System.out.println(strArr1[x]);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;-------------&quot;);</span><br><span class="line"></span><br><span class="line">		String str2 = &quot;aa.bb.cc&quot;;</span><br><span class="line">		String regex2 = &quot;\\.&quot;;</span><br><span class="line">		String[] strArr2 = str2.split(regex2);</span><br><span class="line">		for (int x = 0; x &lt; strArr2.length; x++) &#123;</span><br><span class="line">			System.out.println(strArr2[x]);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;--------------&quot;);</span><br><span class="line"></span><br><span class="line">		String str3 = &quot;aa   bb           cc&quot;;</span><br><span class="line">		String regex3 = &quot; +&quot;;</span><br><span class="line">		String[] strArr3 = str3.split(regex3);</span><br><span class="line">		for (int x = 0; x &lt; strArr3.length; x++) &#123;</span><br><span class="line">			System.out.println(strArr3[x]);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		// 硬盘上的路径，我们应该用\\替代</span><br><span class="line">		String str4 = &quot;E:\\JavaSE\\day14\\avi&quot;;</span><br><span class="line">		String regex4 = &quot;\\\\&quot;;</span><br><span class="line">		String[] strArr4 = str4.split(regex4);</span><br><span class="line">		for (int x = 0; x &lt; strArr4.length; x++) &#123;</span><br><span class="line">			System.out.println(strArr4[x]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.<br>我有如下一个字符串：“91 27 46 38 50”<br>请写代码实现最终输出结果：“27 38 46 50 91”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class RegexTest2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String s = &quot;91 27 46 38 50&quot;;</span><br><span class="line">		// 定义正则表达式</span><br><span class="line">		String regex = &quot; +&quot;;</span><br><span class="line">		// 实现分割功能</span><br><span class="line">		String[] sArr = s.split(regex);</span><br><span class="line">		// 字符串数组转成int数组</span><br><span class="line">		// （其实字符串数组也可以实现排序功能，但是还没学习，也不知道为什么可以，暂时先不用）</span><br><span class="line">		// 字符串数组排序：Arrays.sort(sArr);</span><br><span class="line">		int[] arr = new int[sArr.length];</span><br><span class="line">		for (int x = 0; x &lt; sArr.length; x++) &#123;</span><br><span class="line">			arr[x] = Integer.parseInt(sArr[x]);</span><br><span class="line">		&#125;</span><br><span class="line">		Arrays.sort(arr);</span><br><span class="line"></span><br><span class="line">		// StringBuilder拼接</span><br><span class="line">		StringBuilder sb = new StringBuilder();</span><br><span class="line">		for (int x = 0; x &lt; arr.length; x++) &#123;</span><br><span class="line">			sb.append(arr[x]).append(&quot; &quot;);//拼接完后最后一个数字之后还多一个空格，等下用trim()去掉</span><br><span class="line">		&#125;</span><br><span class="line">		// StringBilder转String</span><br><span class="line">		String s2 = String.valueOf(sb).trim();//trim去掉前后空格</span><br><span class="line">		System.out.println(s2);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-3替换功能"><a href="#3-3替换功能" class="headerlink" title="3.3替换功能"></a>3.3替换功能</h4><p>String类的public String replaceAll(String regex,String replacement)<br>使用给定的repalcement替换此字符串所有匹配给定的正则表达式的子字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class RegexDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String s = &quot;hello3123123world3442java&quot;;</span><br><span class="line">		</span><br><span class="line">		String regex = &quot;\\d&quot;;</span><br><span class="line">		</span><br><span class="line">		String replace = &quot;*&quot;;</span><br><span class="line">		String result = s.replaceAll(regex, replace);</span><br><span class="line">		System.out.println(result);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-4获取功能"><a href="#3-4获取功能" class="headerlink" title="3.4获取功能"></a>3.4获取功能</h4><p>Pattern类和Matcher类的使用<br>案例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import java.util.regex.Matcher;</span><br><span class="line">import java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> * 获取功能案例：</span><br><span class="line"> * da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?</span><br><span class="line"> * 获取该字符串中由三个字符组成的单词</span><br><span class="line"> */</span><br><span class="line">public class RegexDemo2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 定义字符串</span><br><span class="line">		String s = &quot;da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?&quot;;</span><br><span class="line"></span><br><span class="line">		// 规则</span><br><span class="line">		// String regex = &quot;\\w&#123;3&#125;&quot;;</span><br><span class="line">		String regex = &quot;\\b\\w&#123;3&#125;\\b&quot;;</span><br><span class="line"></span><br><span class="line">		// 把规则编译成模式对象</span><br><span class="line">		Pattern p = Pattern.compile(regex);</span><br><span class="line">		// 通过模式对象得到匹配器对象</span><br><span class="line">		Matcher m = p.matcher(s);</span><br><span class="line">		/*</span><br><span class="line">		 * //调用匹配器对象的功能 //通过find()查找有没有满足对象的字串 //public boolean find() boolean</span><br><span class="line">		 * flag = m.find(); System.out.println(flag);//true //如何得到值呢？ //public</span><br><span class="line">		 * String group() String ss = m.group(); System.out.println(ss);//jia</span><br><span class="line">		 * </span><br><span class="line">		 * //再来一次 flag = m.find(); System.out.println(flag);//true ss =</span><br><span class="line">		 * m.group(); System.out.println(ss);//tin,这里出问题了，原文应该是ting，</span><br><span class="line">		 * //但是regex定的规则只是3个英文或数字字符，并没有限定边界。 //所以应该用单词边界：\b来限定。</span><br><span class="line">		 * </span><br><span class="line">		 * //如此一来，功能就完成了，之后把前面都注释掉，通过循环改进</span><br><span class="line">		 */</span><br><span class="line"></span><br><span class="line">		while (m.find()) &#123;</span><br><span class="line">			System.out.println(m.group());</span><br><span class="line">			// 结果如下：</span><br><span class="line">			// jia</span><br><span class="line">			// jin</span><br><span class="line">			// yao</span><br><span class="line">			// xia</span><br><span class="line">			// wan</span><br><span class="line">			// gao</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：先调用find()后才能调用group(),规则就是这样定的。</p>
+<h2 id="二、Math"><a href="#二、Math" class="headerlink" title="二、Math"></a>二、Math</h2><h3 id="1-Math类概述"><a href="#1-Math类概述" class="headerlink" title="1.Math类概述"></a>1.Math类概述</h3><p>Math类包含执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。<br>两个成员变量：<br>public static final double PI;圆周率pi<br>public static final double E;自然对数e</p>
+<h3 id="2-Math类的成员方法-方法都是静态的"><a href="#2-Math类的成员方法-方法都是静态的" class="headerlink" title="2.Math类的成员方法(方法都是静态的)"></a>2.Math类的成员方法(方法都是静态的)</h3><p>int abs(int a):绝对值<br>double ceil(double a):向上取整（大于a的最小整数）<br>double floor(double a):向下取整<br>int max(int a,int b):最大值<br>int min(int a,int b):最小值<br>double pow(double a,double b):a的b次幂;<br>double random():随机数[0.0,1.0)<br>int round(float a):四舍五入<br>int round(double a):四舍五入<br>double sqrt(double a):正平方根</p>
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><p>1.<br>通过键盘录入两个int类型的值，如何获所输入的两个值范围内的int类型随机数？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class MathTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入第一个数据：&quot;);</span><br><span class="line">		int a = sc.nextInt();</span><br><span class="line">		System.out.println(&quot;请输入第二个数据：&quot;);</span><br><span class="line">		int b = sc.nextInt();</span><br><span class="line">		</span><br><span class="line">		int start;</span><br><span class="line">		int end;</span><br><span class="line">		</span><br><span class="line">		//方法1:三元运算符取两者中的最大值</span><br><span class="line">		//start = a&gt;b?b:a;</span><br><span class="line">		//end = a&gt;b?a:b;</span><br><span class="line">		</span><br><span class="line">		//方法2:Math.max(),Math.min()</span><br><span class="line">		start = Math.min(a, b);</span><br><span class="line">		end = Math.max(a, b);</span><br><span class="line">		</span><br><span class="line">		for(int x=0;x&lt;100;x++) &#123;</span><br><span class="line">			System.out.println(&quot;根据您输入的范围所产生的随机数：&quot;+(start+(int)(Math.random()*(end-start+1))));</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、Random"><a href="#三、Random" class="headerlink" title="三、Random"></a>三、Random</h2><h3 id="1-Random类概述"><a href="#1-Random类概述" class="headerlink" title="1.Random类概述"></a>1.Random类概述</h3><p>产生随机数的类</p>
+<h3 id="2-Random类的构造方法"><a href="#2-Random类的构造方法" class="headerlink" title="2.Random类的构造方法"></a>2.Random类的构造方法</h3><p>public Random():没有给种子，用的是默认种子，是当前时间的毫秒值。（每次给的种子不一样）//每次随机的结果不一样<br>public Random(long seed):给出指定的种子。//每次随机的结果一样。</p>
+<h3 id="3-Random类的成员方法"><a href="#3-Random类的成员方法" class="headerlink" title="3.Random类的成员方法"></a>3.Random类的成员方法</h3><p>public int nextInt():返回的是int范围内的随机数<br>public int nextInt(int n)：返回[0,n)范围内的随机数</p>
+<h2 id="四、System"><a href="#四、System" class="headerlink" title="四、System"></a>四、System</h2><h3 id="1-System类概述-成员都是静态的，不能实例化"><a href="#1-System类概述-成员都是静态的，不能实例化" class="headerlink" title="1.System类概述(成员都是静态的，不能实例化)"></a>1.System类概述(成员都是静态的，不能实例化)</h3><h3 id="2-System类的成员方法"><a href="#2-System类的成员方法" class="headerlink" title="2.System类的成员方法"></a>2.System类的成员方法</h3><p>public static void gc():运行垃圾回收器。<br>public static void exit(int status):终止当前正在运行的Java虚拟机。参数用作状态码，非0的状态码表示异常终止。<br>public static long currentTimeMills():返回以毫秒为单位的当前时间。实际返回的是当前时间与1970年1月1日0时的时间差。<br>//1970年1月1日是因为当时的操作系统只有32位，时间最多只能表示到68年后，那个时候经过商议就定1970年1月1日是时间纪元，时间从这个时候开始算起。但是现在的操作系统已经是64位的了，它能表示的时间长度已经到达亿年以上，够我们N代后代使用了。<br>应用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class SystemDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(System.currentTimeMillis());</span><br><span class="line">		System.out.println(&quot;---------&quot;);</span><br><span class="line">		</span><br><span class="line">		//应用：统计代码的运行时间</span><br><span class="line">		long start = System.currentTimeMillis();</span><br><span class="line">		for(int x=0;x&lt;100000;x++) &#123;</span><br><span class="line">			System.out.println(&quot;hello:&quot;+x);</span><br><span class="line">		&#125;</span><br><span class="line">		long end = System.currentTimeMillis();</span><br><span class="line">		System.out.println(&quot;总共花了：&quot;+(end-start)+&quot;毫秒&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>public static void arraycopy(Object src,int srcPos,Object dest,int destPos,int length):从源数组的指定位置开始，复制到目标数组的指定位置，长度为length。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Arrays;</span><br><span class="line"></span><br><span class="line">public class SystemDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int[] arr = &#123; 11, 22, 33, 44, 55 &#125;;</span><br><span class="line">		int[] arr2 = &#123; 6, 7, 8, 9, 10 &#125;;</span><br><span class="line"></span><br><span class="line">		System.arraycopy(arr, 1, arr2, 2, 2);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">		System.out.println(Arrays.toString(arr2));</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、BigInteger"><a href="#五、BigInteger" class="headerlink" title="五、BigInteger"></a>五、BigInteger</h2><h3 id="1-BigInteger概述"><a href="#1-BigInteger概述" class="headerlink" title="1.BigInteger概述"></a>1.BigInteger概述</h3><p>因为Integer的最大值为int类型的最大值，不能满足现在的使用了，所以提供一个新的BigInteger类进行使用。<br>它的作用是可以让超过Integer范围内的数据进行计算。</p>
+<h3 id="2-构造方法"><a href="#2-构造方法" class="headerlink" title="2.构造方法"></a>2.构造方法</h3><p>public BigInteger(String val):将字符串格式化成数据。</p>
+<h3 id="3-成员方法"><a href="#3-成员方法" class="headerlink" title="3.成员方法"></a>3.成员方法</h3><p>add(BigInteger val):加<br>abstract(BigInteger val):减<br>multiply(BigInteger val):乘<br>divide(BigInteger val):除以<br>divideAndRemainder(BigInteger val):返回商和余数的数组<br>案例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class BigIntegerDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		BigInteger bi1 = new BigInteger(&quot;100&quot;);</span><br><span class="line">		BigInteger bi2 = new BigInteger(&quot;20&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println(bi1.add(bi2));//120</span><br><span class="line">		System.out.println(bi1.subtract(bi2));//80</span><br><span class="line">		System.out.println(bi1.multiply(bi2));//2000</span><br><span class="line">		System.out.println(bi1.divide(bi2));//5</span><br><span class="line">		BigInteger[] biarr = bi1.divideAndRemainder(bi2);</span><br><span class="line">		System.out.println(Arrays.toString(biarr));//[5,0]</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="六、BigDecimal"><a href="#六、BigDecimal" class="headerlink" title="六、BigDecimal"></a>六、BigDecimal</h2><h3 id="1-BigDecimal概述"><a href="#1-BigDecimal概述" class="headerlink" title="1.BigDecimal概述"></a>1.BigDecimal概述</h3><p>案例引入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class BigDecimalDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(0.09+0.01);//0.09999999999999999</span><br><span class="line">		System.out.println(1.0-0.32);//0.6799999999999999</span><br><span class="line">		System.out.println(1.015*100);//101.49999999999999</span><br><span class="line">		System.out.println(1.301/100);//0.013009999999999999</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于在计算的时候，float类型和double类型很容易丢失精度(存在循环小数，需要截取有效数字，导致结果很接近，但没办法达到真正的结果，如上述案例)。为了能精确的表示，计算浮点数，Java提供了BigDecimal类。<br>BigDecimal:不可变的，任意精度的有符号十进制数。</p>
+<h3 id="2-BigDecimal构造方法"><a href="#2-BigDecimal构造方法" class="headerlink" title="2.BigDecimal构造方法"></a>2.BigDecimal构造方法</h3><p>public BigDeicimal(String val)</p>
+<h3 id="3-BigDecimal成员方法"><a href="#3-BigDecimal成员方法" class="headerlink" title="3.BigDecimal成员方法"></a>3.BigDecimal成员方法</h3><p>加减乘除<br>public BigDecimal dvide(BigDecimal divisor,int scale,int roundingMode):商，小数点后留几位，如何舍取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class BigDecimalDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		BigDecimal bd = new BigDecimal(&quot;1.301&quot;);</span><br><span class="line">		BigDecimal bd2 = new BigDecimal(&quot;100&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println(bd.divide(bd2));</span><br><span class="line">		System.out.println(bd.divide(bd2, 3, BigDecimal.ROUND_HALF_UP));</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="七、Date-DateFormat"><a href="#七、Date-DateFormat" class="headerlink" title="七、Date/DateFormat"></a>七、Date/DateFormat</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>Date类概述<br>类Date表示特定的瞬间，精确到毫秒。</p>
+<h3 id="2-构造方法-1"><a href="#2-构造方法-1" class="headerlink" title="2.构造方法"></a>2.构造方法</h3><p>public Date()：根据当前的默认毫秒值创建日期对象<br>public Date(long date):根据给定的毫秒值创建日期对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class DateDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//无参构造创建对象</span><br><span class="line">		Date d = new Date();</span><br><span class="line">		System.out.println(&quot;d:&quot;+d);</span><br><span class="line">		</span><br><span class="line">		//带参构造创建对象</span><br><span class="line">		long time = System.currentTimeMillis();</span><br><span class="line">		Date d2 = new Date(time);</span><br><span class="line">		System.out.println(&quot;d2:&quot;+d2);</span><br><span class="line">		</span><br><span class="line">		//时区演示，我们是东八区</span><br><span class="line">		long t = 1000*60*60;//1个小时</span><br><span class="line">		Date d3 = new Date(t);</span><br><span class="line">		System.out.println(&quot;d3:&quot;+d3);//d3:Thu Jan 01 09:00:00 CST 1970</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-成员方法-1"><a href="#3-成员方法-1" class="headerlink" title="3.成员方法"></a>3.成员方法</h3><p>public long getTime():获取时间，以毫秒为单位<br>public void setTime(long time):设置时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class DateDemo2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//创建对象</span><br><span class="line">		Date d = new Date();</span><br><span class="line">		</span><br><span class="line">		//获取时间</span><br><span class="line">		long time = d.getTime();</span><br><span class="line">		System.out.println(time);</span><br><span class="line">		System.out.println(&quot;--------&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;d:&quot;+d);</span><br><span class="line">		d.setTime(1000);</span><br><span class="line">		System.out.println(&quot;d:&quot;+d);//d:Thu Jan 01 08:00:01 CST 1970</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>要求：学完getTime()和setTime(long time)要能够做到以下两步<br>（1）从Date得到一个毫秒值：<br>getTime()<br>（2）把一个毫秒值转换为Date<br>构造方法<br>setTime(long time)</p>
+<h3 id="4-DateFormat类概述-需要导包"><a href="#4-DateFormat类概述-需要导包" class="headerlink" title="4.DateFormat类概述(需要导包)"></a>4.DateFormat类概述(需要导包)</h3><p>（1）DateFormat是日期/时间格式化子类的抽象类，它以与语言无关的方式格式化并解析日期或时间<br>（2）是抽象类，所以使用其子类SimpleDateFormat。可以实现日期和字符串的格式化和解析。</p>
+<h3 id="4-DateFormat类构造方法"><a href="#4-DateFormat类构造方法" class="headerlink" title="4.DateFormat类构造方法"></a>4.DateFormat类构造方法</h3><p>SimpleDateFormat():默认模式<br>SimpleDateFormat(String pattern):给定的日期模式<br>这个模式字符串该怎么写呢？<br>通过查看API，我们就找到了对应的模式。<br>年 y<br>月 M<br>日 d<br>时 H<br>分 m<br>秒 s<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class DateFormatDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//Date -- String </span><br><span class="line">		//创建日期对象</span><br><span class="line">		Date d = new Date();</span><br><span class="line">		//创建格式化对象</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);</span><br><span class="line">		//使用format()对日期进行格式化</span><br><span class="line">		String s = sdf.format(d);</span><br><span class="line">		System.out.println(&quot;s:&quot;+s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-Date及DateFormat类要掌握的内容（总结）"><a href="#5-Date及DateFormat类要掌握的内容（总结）" class="headerlink" title="5.Date及DateFormat类要掌握的内容（总结）"></a>5.Date及DateFormat类要掌握的内容（总结）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.text.ParseException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * Date -- String(格式化)</span><br><span class="line"> * 		public final String format(Date date)</span><br><span class="line"> * String -- Date(解析)</span><br><span class="line"> * 		public Date parse(String source)</span><br><span class="line"> */</span><br><span class="line">public class DateFormatDemo &#123;</span><br><span class="line">	public static void main(String[] args) throws ParseException &#123;</span><br><span class="line">		//Date -- String </span><br><span class="line">		//创建日期对象</span><br><span class="line">		Date d = new Date();</span><br><span class="line">		//创建格式化对象</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);</span><br><span class="line">		//使用format()对日期进行格式化</span><br><span class="line">		String s = sdf.format(d);</span><br><span class="line">		System.out.println(&quot;s:&quot;+s);</span><br><span class="line">		</span><br><span class="line">		//String -- Date</span><br><span class="line">		String str = &quot;2008-08-08 12:12:12&quot;;</span><br><span class="line">		//在把一个字符串解析为日期的时候，请注意格式必须和给定的字符串格式匹配</span><br><span class="line">		SimpleDateFormat sdf2 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">		Date d2 = sdf2.parse(str);</span><br><span class="line">		System.out.println(&quot;d2:&quot;+d2);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Date类及DAteFormat类练习"><a href="#Date类及DAteFormat类练习" class="headerlink" title="Date类及DAteFormat类练习"></a>Date类及DAteFormat类练习</h3><p>1.<br>制作一个工具类。DateUtil<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.text.ParseException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 这是日期和字符串相互转换的工具类</span><br><span class="line"> * </span><br><span class="line"> * @author chenjie</span><br><span class="line"> *</span><br><span class="line"> *	</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class DateUtil &#123;</span><br><span class="line">	private DateUtil() &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static String dateToString(Date d) &#123;</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);</span><br><span class="line">		return sdf.format(d);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static Date stringToDate(String s) throws ParseException &#123;</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">		return sdf.parse(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>功能已经写完，但是文档注释写得不好，以后写的时候要改进。<br>2.<br>算一下你来到这个世界多少天？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import java.text.ParseException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 算算你出生到现在多少天？</span><br><span class="line"> * </span><br><span class="line"> * 分析:</span><br><span class="line"> * （1）键盘录入自己的出生年月，转为Date类型，再转为毫秒值</span><br><span class="line"> * （2）获取现在的时间的毫秒值</span><br><span class="line"> * （3）现在的时间减去自己出生年月，然后把这个毫秒值数据计算成以天数计的时间</span><br><span class="line"> */</span><br><span class="line">public class DateTest &#123;</span><br><span class="line">	public static void main(String[] args) throws ParseException &#123;</span><br><span class="line">		//键盘录入自己的出生年月</span><br><span class="line">		Scanner sc= new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请按格式输入你的出生年月(yyyy-MM-dd):&quot;);</span><br><span class="line">		String str1 = sc.nextLine();</span><br><span class="line">		</span><br><span class="line">		//String -- Date -- 毫秒值</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span><br><span class="line">		Date d = sdf.parse(str1);</span><br><span class="line">		long time1 = d.getTime();</span><br><span class="line">		long time2 = System.currentTimeMillis();</span><br><span class="line">		System.out.println(&quot;你从出生到现在已经过去了&quot;+((time2-time1)/1000/60/60/24)+&quot;天了，赶紧努力吧&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="八、Calendar"><a href="#八、Calendar" class="headerlink" title="八、Calendar"></a>八、Calendar</h2><h3 id="1-概述-1"><a href="#1-概述-1" class="headerlink" title="1.概述"></a>1.概述</h3><p>Calendar是一个抽象类</p>
+<h3 id="2-成员方法"><a href="#2-成员方法" class="headerlink" title="2.成员方法"></a>2.成员方法</h3><p>public int get(int field):返回给定日历字段的值。日历类中的每个日历字段都是静态的成员变量，并且是int类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.Calendar;</span><br><span class="line"></span><br><span class="line">public class CalendarDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 其日历字段已由当前日期和时间初始化:</span><br><span class="line">		Calendar rightNow = Calendar.getInstance();//子类对象，其实这个就是多态。</span><br><span class="line">		</span><br><span class="line">		//获取年</span><br><span class="line">		int year = rightNow.get(Calendar.YEAR);</span><br><span class="line">		//获取月</span><br><span class="line">		int month = rightNow.get(Calendar.MONTH);</span><br><span class="line">		//获取日</span><br><span class="line">		int day = rightNow.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">		System.out.println(year+&quot;年&quot;+(month+1)+&quot;月&quot;+day+&quot;日&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>public void add(int field,int amount):根据给定的字段和对应的时间，来对当前的日历进行操作。<br>public final void set(int year,int month,int date):设置当前日历的年月日。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Calendar;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">public class CalendarDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//获取当前的日期和时间</span><br><span class="line">		Calendar c = Calendar.getInstance();</span><br><span class="line">		</span><br><span class="line">		//获取年</span><br><span class="line">		int year = c.get(Calendar.YEAR);</span><br><span class="line">		//获取月</span><br><span class="line">		int month = c.get(Calendar.MONTH);</span><br><span class="line">		//获取日</span><br><span class="line">		int day = c.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">		System.out.println(year+&quot;年&quot;+(month+1)+&quot;月&quot;+day+&quot;日&quot;);</span><br><span class="line">		System.out.println(&quot;-----------&quot;);</span><br><span class="line">		</span><br><span class="line">		//三年前的今天</span><br><span class="line">		c.add(Calendar.YEAR, -3);</span><br><span class="line">		//获取年</span><br><span class="line">		int year2 = c.get(Calendar.YEAR);</span><br><span class="line">		//获取月</span><br><span class="line">		int month2 = c.get(Calendar.MONTH);</span><br><span class="line">		//获取日</span><br><span class="line">		int day2 = c.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">		System.out.println(year2+&quot;年&quot;+(month2+1)+&quot;月&quot;+day2+&quot;日&quot;);</span><br><span class="line">		System.out.println(&quot;-----------&quot;);</span><br><span class="line">		</span><br><span class="line">		//五年后的十天前</span><br><span class="line">		c.add(Calendar.YEAR, 5);</span><br><span class="line">		c.add(Calendar.DAY_OF_MONTH, -10);</span><br><span class="line">		//获取年</span><br><span class="line">		year2 = c.get(Calendar.YEAR);</span><br><span class="line">		//获取月</span><br><span class="line">		month2 = c.get(Calendar.MONTH);</span><br><span class="line">		//获取日</span><br><span class="line">		day2 = c.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">		System.out.println(year2+&quot;年&quot;+(month2+1)+&quot;月&quot;+day2+&quot;日&quot;);</span><br><span class="line">		System.out.println(&quot;-----------&quot;);</span><br><span class="line">		</span><br><span class="line">		c.set(2011,11,11);</span><br><span class="line">		//获取年</span><br><span class="line">		year2 = c.get(Calendar.YEAR);</span><br><span class="line">		//获取月</span><br><span class="line">		month2 = c.get(Calendar.MONTH);</span><br><span class="line">		//获取日</span><br><span class="line">		day2 = c.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">		System.out.println(year2+&quot;年&quot;+(month2)+&quot;月&quot;+day2+&quot;日&quot;);</span><br><span class="line">		System.out.println(&quot;-----------&quot;);</span><br><span class="line">				</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Calendar练习"><a href="#Calendar练习" class="headerlink" title="Calendar练习"></a>Calendar练习</h3><p>1.<br>获取任意一年的二月有多少天？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Calendar;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> * 任意一年的二月有多少天？</span><br><span class="line"> * 分析：</span><br><span class="line"> * （1）键盘录入年份</span><br><span class="line"> * （2）Calendar设置年月日，年就是键盘录入的年份，月就是3月，日就是1日。</span><br><span class="line"> * （3）add（）提前一天，得出的结果就是二月的天数</span><br><span class="line"> */</span><br><span class="line">public class CalendarTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//键盘录入年份</span><br><span class="line">		Scanner sc= new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入年份：&quot;);</span><br><span class="line">		int year = sc.nextInt();</span><br><span class="line">		</span><br><span class="line">		Calendar c = Calendar.getInstance();</span><br><span class="line">		c.set(year,2,1);</span><br><span class="line">		c.add(Calendar.DAY_OF_MONTH, -1);</span><br><span class="line">		System.out.println(&quot;你输入的这个年份中二月一共有&quot;+c.get(Calendar.DAY_OF_MONTH)+&quot;天&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Wechatpay.png" alt="Jetzilch 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Alipay.jpg" alt="Jetzilch 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-bolt"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/30/javaday13/" rel="next" title="javaday13">
+                <i class="fa fa-chevron-left"></i> javaday13
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/jet.jpg" alt="Jetzilch">
+            
+              <p class="site-author-name" itemprop="name">Jetzilch</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Jetzilch" title="GitHub &rarr; https://github.com/Jetzilch" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/Jetzilch" title="https://github.com/Jetzilch" rel="noopener" target="_blank">Github</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、正则表达式"><span class="nav-number">1.</span> <span class="nav-text">一、正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-正则表达式概述"><span class="nav-number">1.1.</span> <span class="nav-text">1.正则表达式概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-正则表达式的组成规则"><span class="nav-number">1.2.</span> <span class="nav-text">2.正则表达式的组成规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1字符"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2字符类"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2字符类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3预定义字符类"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3预定义字符类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4边界匹配器"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4边界匹配器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5数量词"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5数量词</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-正则表达式的应用"><span class="nav-number">1.3.</span> <span class="nav-text">3.正则表达式的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1判断功能"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1判断功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2分割功能"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2分割功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3替换功能"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3替换功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4获取功能"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4获取功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Math"><span class="nav-number">2.</span> <span class="nav-text">二、Math</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Math类概述"><span class="nav-number">2.1.</span> <span class="nav-text">1.Math类概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Math类的成员方法-方法都是静态的"><span class="nav-number">2.2.</span> <span class="nav-text">2.Math类的成员方法(方法都是静态的)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">2.3.</span> <span class="nav-text">面试题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Random"><span class="nav-number">3.</span> <span class="nav-text">三、Random</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Random类概述"><span class="nav-number">3.1.</span> <span class="nav-text">1.Random类概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Random类的构造方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.Random类的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Random类的成员方法"><span class="nav-number">3.3.</span> <span class="nav-text">3.Random类的成员方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、System"><span class="nav-number">4.</span> <span class="nav-text">四、System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-System类概述-成员都是静态的，不能实例化"><span class="nav-number">4.1.</span> <span class="nav-text">1.System类概述(成员都是静态的，不能实例化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-System类的成员方法"><span class="nav-number">4.2.</span> <span class="nav-text">2.System类的成员方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、BigInteger"><span class="nav-number">5.</span> <span class="nav-text">五、BigInteger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BigInteger概述"><span class="nav-number">5.1.</span> <span class="nav-text">1.BigInteger概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-构造方法"><span class="nav-number">5.2.</span> <span class="nav-text">2.构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-成员方法"><span class="nav-number">5.3.</span> <span class="nav-text">3.成员方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、BigDecimal"><span class="nav-number">6.</span> <span class="nav-text">六、BigDecimal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BigDecimal概述"><span class="nav-number">6.1.</span> <span class="nav-text">1.BigDecimal概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BigDecimal构造方法"><span class="nav-number">6.2.</span> <span class="nav-text">2.BigDecimal构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BigDecimal成员方法"><span class="nav-number">6.3.</span> <span class="nav-text">3.BigDecimal成员方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、Date-DateFormat"><span class="nav-number">7.</span> <span class="nav-text">七、Date/DateFormat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述"><span class="nav-number">7.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-构造方法-1"><span class="nav-number">7.2.</span> <span class="nav-text">2.构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-成员方法-1"><span class="nav-number">7.3.</span> <span class="nav-text">3.成员方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-DateFormat类概述-需要导包"><span class="nav-number">7.4.</span> <span class="nav-text">4.DateFormat类概述(需要导包)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-DateFormat类构造方法"><span class="nav-number">7.5.</span> <span class="nav-text">4.DateFormat类构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Date及DateFormat类要掌握的内容（总结）"><span class="nav-number">7.6.</span> <span class="nav-text">5.Date及DateFormat类要掌握的内容（总结）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date类及DAteFormat类练习"><span class="nav-number">7.7.</span> <span class="nav-text">Date类及DAteFormat类练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、Calendar"><span class="nav-number">8.</span> <span class="nav-text">八、Calendar</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述-1"><span class="nav-number">8.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-成员方法"><span class="nav-number">8.2.</span> <span class="nav-text">2.成员方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calendar练习"><span class="nav-number">8.3.</span> <span class="nav-text">Calendar练习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jetzilch</span>
+
+  
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+-- >
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
