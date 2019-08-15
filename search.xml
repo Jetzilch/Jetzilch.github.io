@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[web前端知识day01_HTML]]></title>
+    <url>%2F2019%2F08%2F16%2Fweb%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86day01-HTML%2F</url>
+    <content type="text"><![CDATA[一、HTML入门案例(静夜思)1.概述HTML：Hyper Text Markup Language 超文本标记语言超文本：比普通文本功能强大，能实现不同样式(比如加粗，居中，斜体)标记语言：使用标签对内容进行描述的语言。 2.使用下列标签完成静夜思案例12345&lt;h1&gt;&lt;/h1&gt; 一级标题&lt;b&gt;&lt;/b&gt; 加粗&lt;i&gt;&lt;/i&gt; 斜体&lt;/br&gt; 换行&lt;p&gt;&lt;/p&gt;段落]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[javaday27]]></title>
     <url>%2F2019%2F08%2F15%2Fjavaday27%2F</url>
     <content type="text"><![CDATA[一、类的加载1.类的初始化类的初始化是由加载，连接，初始化三部分实现的加载：将class文件加载到内存，并创建一个相应的Class对象。连接：初始化： 2.类的加载器负责将class文件加载到内存中，并生成对应的Class对象虽然我们不需要关心类的加载机制，但是了解它有助于帮我们理解程序的运行。 2.1 类加载器的组成Bootstrap ClassLoader 根类加载器也叫引导类加载器，负责System，String这样的核心类的加载，位于JDK中JRE的lib目录下的rt.jar文件中。Extension ClassLoader 扩展加载器负责JRE的扩展目录中jat包的加载在JDK中JRE的lib目录下ext目录。System ClassLoader 系统加载器负责在JVM启动时加载来自java命令的class文件，以及classpath环境变量所指定的jar包和类路径。 二、反射1.概述Java反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的人以一个方法和属性；这种动态获取的信息以及动态调用对象方法的功能成语java语言的反射机制。]]></content>
