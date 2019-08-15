@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入查看密码') !== ''){
+                alert('密码错误，请询问博主');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <meta name="description" content="一、JDK5新特性:Lock锁1.概述为了让锁更清晰的表达，Java提供了Lock接口。 2.售卖电影票案例演示SellTickets类123456789101112131415161718192021222324252627282930package cn.itcast_01;import java.util.concurrent.locks.Lock;import java.util.conc">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaday24">
+<meta property="og:url" content="http://jetzilch.com/2019/08/13/javaday24/index.html">
+<meta property="og:site_name" content="Jetzilch">
+<meta property="og:description" content="一、JDK5新特性:Lock锁1.概述为了让锁更清晰的表达，Java提供了Lock接口。 2.售卖电影票案例演示SellTickets类123456789101112131415161718192021222324252627282930package cn.itcast_01;import java.util.concurrent.locks.Lock;import java.util.conc">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T14:42:04.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaday24">
+<meta name="twitter:description" content="一、JDK5新特性:Lock锁1.概述为了让锁更清晰的表达，Java提供了Lock接口。 2.售卖电影票案例演示SellTickets类123456789101112131415161718192021222324252627282930package cn.itcast_01;import java.util.concurrent.locks.Lock;import java.util.conc">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://jetzilch.com/2019/08/13/javaday24/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>javaday24 | Jetzilch</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Jetzilch" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jetzilch</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jetzilch.com/2019/08/13/javaday24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jetzilch">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/jet.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jetzilch">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javaday24
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-13 09:42:46 / 修改时间：22:42:04" itemprop="dateCreated datePublished" datetime="2019-08-13T09:42:46+08:00">2019-08-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、JDK5新特性-Lock锁"><a href="#一、JDK5新特性-Lock锁" class="headerlink" title="一、JDK5新特性:Lock锁"></a>一、JDK5新特性:Lock锁</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>为了让锁更清晰的表达，Java提供了Lock接口。</p>
+<h3 id="2-售卖电影票案例演示"><a href="#2-售卖电影票案例演示" class="headerlink" title="2.售卖电影票案例演示"></a>2.售卖电影票案例演示</h3><p>SellTickets类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_01;</span><br><span class="line"></span><br><span class="line">import java.util.concurrent.locks.Lock;</span><br><span class="line">import java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line">public class SellTickets implements Runnable &#123;</span><br><span class="line"></span><br><span class="line">	private int tickets = 100;</span><br><span class="line">	private Lock lock = new ReentrantLock();</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		while (true) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				lock.lock();</span><br><span class="line">				if (tickets &gt; 0) &#123;</span><br><span class="line">					try &#123;</span><br><span class="line">						Thread.sleep(100);</span><br><span class="line">					&#125; catch (InterruptedException e) &#123;</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.println(Thread.currentThread().getName() + &quot;正在卖倒数第&quot; + (tickets--) + &quot;张票&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; finally &#123;</span><br><span class="line">				lock.unlock();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SellTicketsDemo类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_01;</span><br><span class="line"></span><br><span class="line">public class SellTicketsDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		SellTickets st = new SellTickets();</span><br><span class="line">		</span><br><span class="line">		Thread t1 = new Thread(st,&quot;窗口1&quot;);</span><br><span class="line">		Thread t2 = new Thread(st,&quot;窗口2&quot;);</span><br><span class="line">		Thread t3 = new Thread(st,&quot;窗口3&quot;);</span><br><span class="line">		</span><br><span class="line">		t1.start();</span><br><span class="line">		t2.start();</span><br><span class="line">		t3.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、死锁问题"><a href="#二、死锁问题" class="headerlink" title="二、死锁问题"></a>二、死锁问题</h2><h3 id="1-概述-1"><a href="#1-概述-1" class="headerlink" title="1.概述"></a>1.概述</h3><p>死锁问题指的是两个或者两个以上的线程在执行过程中，因争夺资源产生的一种互相等待的现象。<br>举例：<br>中国人、美国人吃饭案例<br>中国人需要两支筷子才能吃饭，美国人需要刀叉才能吃饭。<br>现在中国人有1支筷子，一把刀。等美国人给他筷子<br>美国人只有一支筷子，一把叉，等中国人给他刀，<br>两个人都在等待，没有办法吃饭。<br>同步的弊端：<br>（1）效率低<br>（2）容易出现死锁</p>
+<h3 id="2-死锁问题代码体现"><a href="#2-死锁问题代码体现" class="headerlink" title="2.死锁问题代码体现"></a>2.死锁问题代码体现</h3><p>MyLock类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_02;</span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">public class MyLock &#123;</span><br><span class="line">	//创建两把锁</span><br><span class="line">	public static final Object objA = new Object();</span><br><span class="line">	public static final Object objB = new Object();</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>DieLock类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_02;</span><br><span class="line"></span><br><span class="line">public class DieLock extends Thread &#123;</span><br><span class="line"></span><br><span class="line">	private boolean flag;</span><br><span class="line"></span><br><span class="line">	public DieLock(boolean flag) &#123;</span><br><span class="line">		this.flag = flag;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		if (flag) &#123;</span><br><span class="line">			synchronized (MyLock.objA) &#123;</span><br><span class="line">				System.out.println(&quot;if objA&quot;);</span><br><span class="line">				synchronized (MyLock.objB) &#123;</span><br><span class="line">					System.out.println(&quot;if objB&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			synchronized (MyLock.objB) &#123;</span><br><span class="line">				System.out.println(&quot;else objB&quot;);</span><br><span class="line">				synchronized (MyLock.objA) &#123;</span><br><span class="line">					System.out.println(&quot;else objA&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>DieLockDemo类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_02;</span><br><span class="line"></span><br><span class="line">public class DieLockDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		DieLock dl1 = new DieLock(true);</span><br><span class="line">		DieLock dl2 = new DieLock(false);</span><br><span class="line">		</span><br><span class="line">		dl1.start();</span><br><span class="line">		dl2.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、线程间的通信"><a href="#三、线程间的通信" class="headerlink" title="三、线程间的通信"></a>三、线程间的通信</h2><p>1.概述<br>线程间的通信指不同种类的线程针对统一资源的操作。(想想买包子和买包子的例子)<br>2.案例演示<br>Student类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_03;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	private String name;</span><br><span class="line">	private int age;</span><br><span class="line"></span><br><span class="line">	public Student() &#123;</span><br><span class="line">		super();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(String name, int age) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int getAge() &#123;</span><br><span class="line">		return age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setAge(int age) &#123;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SetThread类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_03;</span><br><span class="line"></span><br><span class="line">public class SetThread implements Runnable &#123;</span><br><span class="line"></span><br><span class="line">	private Student s;</span><br><span class="line"></span><br><span class="line">	public SetThread(Student s) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		int x = 0;</span><br><span class="line">		while (true) &#123;</span><br><span class="line">			synchronized (s) &#123;</span><br><span class="line">				if (x % 2 == 0) &#123;</span><br><span class="line">					s.setName(&quot;林青霞&quot;);</span><br><span class="line">					s.setAge(27);</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					s.setName(&quot;哈哈哈&quot;);</span><br><span class="line">					s.setAge(100);</span><br><span class="line">				&#125;</span><br><span class="line">				x++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>GetThread类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_03;</span><br><span class="line"></span><br><span class="line">public class GetThread implements Runnable &#123;</span><br><span class="line"></span><br><span class="line">	private Student s;</span><br><span class="line"></span><br><span class="line">	public GetThread(Student s) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		while(true) &#123;</span><br><span class="line">			synchronized (s) &#123;</span><br><span class="line">				System.out.println(s.getName() + &quot;---&quot; + s.getAge());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>StudentDemo类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_03;</span><br><span class="line"></span><br><span class="line">public class StudentDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Student s = new Student();</span><br><span class="line">		</span><br><span class="line">		//创建线程对象</span><br><span class="line">		GetThread gt1 = new GetThread(s);</span><br><span class="line">		SetThread st1 = new SetThread(s);</span><br><span class="line">		</span><br><span class="line">		Thread t1 = new Thread(gt1);</span><br><span class="line">		Thread t2 = new Thread(st1);</span><br><span class="line">		</span><br><span class="line">		t1.start();</span><br><span class="line">		t2.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在这个程序虽然保证了线程安全，但是仍然有问题：<br>（1）如果一开始是GetThread抢到CPU执行权，此时Student对象仍是默认赋值null和0，这样就会输出null—0，没有意义。就像还没做好包子，只有面粉，结果别人就把它买走了。<br>（2）如果SetThread一直抢到执行权，则会一直进行赋值，而之前被赋值的内容失去了意义，白费功夫了，这也是有问题的。应该等数据被GetThread”消费”后再进行“生产”。就像没有人来买包子，我却一直做，而我只能装一个包子，所以每次做了新的包子，就把旧的包子丢掉了。<br>依据上述的问题，我们正常的解决思路应该是：<br>（1）生产者(SetThread):先看是否有数据，有就等待，没有就生产。<br>（2）消费者(GetThread):先看是否有数据，有就消费，没有就等待。<br>为了处理这个问题，Java就提供了一种机制：等待唤醒机制。<br>加入等待唤醒机制后：<br>（1）生产者(SetThread):先看是否有数据，有就等待，没有就生产，生产完之后通知消费者来消费数据。<br>（2）消费者(GetThread):先看是否有数据，有就消费，没有就等待，通知生产者生产数据。</p>
+<h3 id="3-Java等待唤醒机制"><a href="#3-Java等待唤醒机制" class="headerlink" title="3.Java等待唤醒机制"></a>3.Java等待唤醒机制</h3><p>等待唤醒机制由Object类中的三个方法来实现：<br>wait():等待<br>notify():唤醒单个线程<br>notifyAll():唤醒所有线程<br>这些方法都与线程相关，为什么不定义在Thread类中呢？<br>因为这些方法的调用必须通过锁对象调用，而我们刚才使用的锁对象是任意锁对象，所以这些方法必须定义在OBject类中，这样任意对象才都能调用。</p>
+<h2 id="四、线程组"><a href="#四、线程组" class="headerlink" title="四、线程组"></a>四、线程组</h2><h3 id="1-概述-2"><a href="#1-概述-2" class="headerlink" title="1.概述"></a>1.概述</h3><p>Java中使用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。</p>
+<h3 id="2-如何对线程进行分组"><a href="#2-如何对线程进行分组" class="headerlink" title="2.如何对线程进行分组"></a>2.如何对线程进行分组</h3><p>创建一个新的组，并在创建新的线程对象时通过构造方法对其进行分组。</p>
+<h2 id="五、线程池"><a href="#五、线程池" class="headerlink" title="五、线程池"></a>五、线程池</h2><h3 id="1-概述-3"><a href="#1-概述-3" class="headerlink" title="1.概述"></a>1.概述</h3><p>程序启动一个线程要与系统交互，占用资源较多。如果存在一个线程池，里面存在一些线程，当程序要创建大量生存周期很短的线程时，可以使用线程池。<br>线程池里的每一个线程代码结束后，并不会死亡，而是再次回到线程池中成为空闲状态，等待下一个对象来使用。(省去了启动线程时占用资源)<br>JDK5之前，必须手动实现自己的线程池，JDK5之后，Java内置支持线程池。</p>
+<h3 id="2-线程池简单案例演示"><a href="#2-线程池简单案例演示" class="headerlink" title="2.线程池简单案例演示"></a>2.线程池简单案例演示</h3><p>步骤：<br>（1）创建一个线程池对象，通过带参构造确定要创建几个线程对象<br>Executors类的public static ExecutorService newFixedThreadPool(int nThreads)<br>（2）上述创建的线程池对象可以执行：<br>可以执行Runnable对象或者Callable对象代表的线程。<br>所以我们这里要做一个类实现Runnable接口<br>（3）调用如下方法即可:<br>Future&lt;?&gt; submit(Runnable task)</p>
+<p><t> Future<t> submit(Callable<t> task)<br>（4）如何结束？<br>shoutdown();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_08;</span><br><span class="line"></span><br><span class="line">import java.util.concurrent.ExecutorService;</span><br><span class="line">import java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 步骤：</span><br><span class="line">（1）创建一个线程池对象，通过带参构造确定要创建几个线程对象</span><br><span class="line">Executors类的public static ExecutorService newFixedThreadPool(int nThreads)</span><br><span class="line">（2）上述创建的线程池对象可以执行：</span><br><span class="line">可以执行Runnable对象或者Callable对象代表的线程。</span><br><span class="line">所以我们这里要做一个类实现Runnable接口</span><br><span class="line">（3）调用如下方法即可:</span><br><span class="line">Future&lt;?&gt; submit(Runnable task)</span><br><span class="line">&lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</span><br><span class="line">（4）如何结束？</span><br><span class="line">shoutdown();</span><br><span class="line"> */</span><br><span class="line">public class ExceutorsDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//（1）创建一个线程池对象，通过带参构造确定要创建几个线程对象</span><br><span class="line">		ExecutorService pool = Executors.newFixedThreadPool(2);</span><br><span class="line">		</span><br><span class="line">		//可以执行Runnable对象或者Callable对象代表的线程。</span><br><span class="line">		pool.submit(new MyRunnable());</span><br><span class="line">		pool.submit(new MyRunnable());</span><br><span class="line">		</span><br><span class="line">		//结束进程池</span><br><span class="line">		pool.shutdown();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></t></t></t></p>
+<h3 id="3-多线程实现方式3-Callable-接口-—了解"><a href="#3-多线程实现方式3-Callable-接口-—了解" class="headerlink" title="3.多线程实现方式3:Callable(接口)—了解"></a>3.多线程实现方式3:Callable(接口)—了解</h3><p>Callable:带泛型的接口<br>这里指定的泛型其实是call()方法的返回值类型<br>很简单，把call()当run()使用，但是可以带返回值，不知道返回什么可以返回null。这个接口的实现类对象无法传递给Thread的带参构造，也就是说Thread没有接收Callable实现类对象的带参构造方法，所以用的不多，它主要是依赖线程池实现的。<br>这个实现方法的好处是：<br>（1）有返回值<br>（2）可以抛异常<br>弊端：繁琐。</p>
+<h2 id="六、匿名内部类使用多线程-至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…"><a href="#六、匿名内部类使用多线程-至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…" class="headerlink" title="六、匿名内部类使用多线程(至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…)"></a>六、匿名内部类使用多线程(至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_09;</span><br><span class="line">/*</span><br><span class="line"> * 匿名内部类使用多线程</span><br><span class="line"> */</span><br><span class="line">public class Demo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//实现多线程方式1:继承Thread类</span><br><span class="line">		new Thread() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				for(int x=0;x&lt;50;x++) &#123;</span><br><span class="line">					System.out.println(&quot;hello:&quot;+x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;.start();</span><br><span class="line">		</span><br><span class="line">		//实现多线程方式2:实现Runnable接口</span><br><span class="line">		new Thread(new Runnable() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				for(int x=0;x&lt;50;x++) &#123;</span><br><span class="line">					System.out.println(&quot;world:&quot;+x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;) &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				for(int x=0;x&lt;50;x++) &#123;</span><br><span class="line">					System.out.println(&quot;java:&quot;+x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;.start();//开发时不会这样做，但面试可能会问，</span><br><span class="line">		//因为接口实现类要重写run()方法，而Thread子类也可以重写run()，所以才会出现上述情况</span><br><span class="line">		//如果出现这样的情况，结果是执行Thread子类的run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="七、定时器"><a href="#七、定时器" class="headerlink" title="七、定时器"></a>七、定时器</h2><h3 id="1-概述及案例演示"><a href="#1-概述及案例演示" class="headerlink" title="1.概述及案例演示"></a>1.概述及案例演示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_12;</span><br><span class="line"></span><br><span class="line">import java.util.Timer;</span><br><span class="line">import java.util.TimerTask;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 定时器：可以让我们在指定时间做某件事情，还可以重复的做某件事情。</span><br><span class="line"> * 依赖Timer和TimerTask这两个类：</span><br><span class="line"> * Timer：定时</span><br><span class="line"> * 		Timer()</span><br><span class="line"> * 		schedule(TimerTask t,long delay)</span><br><span class="line"> * 		schedule(TimerTask t,long delay,long period)</span><br><span class="line"> * TimerTask：任务</span><br><span class="line"> */</span><br><span class="line">public class TimerDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建TImer对象</span><br><span class="line">		Timer t = new Timer();</span><br><span class="line"></span><br><span class="line">		t.schedule(new MyTask(t), 1000,1000);//第三个参数的意思是隔多少毫秒后再执行任务。</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyTask extends TimerTask &#123;</span><br><span class="line"></span><br><span class="line">	private Timer t;</span><br><span class="line"></span><br><span class="line">	public MyTask() &#123;</span><br><span class="line">		super();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public MyTask(Timer t) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.t = t;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		System.out.println(&quot;学习时间结束&quot;);</span><br><span class="line">		//t.cancel();//使用cancel()表示已经退出任务，所以如果指定了schedule()第三个参数，</span><br><span class="line">		//又在此处使用cancel(),则不会重复任务，因为调用此方法后任务已经退出，不会再执行。</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-练习"><a href="#2-练习" class="headerlink" title="2.练习"></a>2.练习</h3><p>1.<br>需求：在指定的时间删除指定目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_12;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.text.ParseException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.Timer;</span><br><span class="line">import java.util.TimerTask;</span><br><span class="line"></span><br><span class="line">public class TimerTest &#123;</span><br><span class="line">	public static void main(String[] args) throws ParseException &#123;</span><br><span class="line">		Timer t = new Timer();</span><br><span class="line"></span><br><span class="line">		t.schedule(new DeleteFolder(t), 3000);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class DeleteFolder extends TimerTask &#123;</span><br><span class="line">	private Timer t;</span><br><span class="line"></span><br><span class="line">	public DeleteFolder(Timer t) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.t = t;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public DeleteFolder() &#123;</span><br><span class="line">		super();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		System.out.println(&quot;1&quot;);</span><br><span class="line">		File srcFolder = new File(&quot;/Users/chenjie/Desktop/demo&quot;);</span><br><span class="line">		System.out.println(&quot;1&quot;);</span><br><span class="line">		deleteFolder(srcFolder);</span><br><span class="line">		System.out.println(&quot;1&quot;);</span><br><span class="line">		t.cancel();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void deleteFolder(File srcFolder) &#123;</span><br><span class="line">		File[] fileArr = srcFolder.listFiles();</span><br><span class="line">		if (fileArr != null) &#123;</span><br><span class="line">			for (File file : fileArr) &#123;</span><br><span class="line">				if (file.isDirectory()) &#123;</span><br><span class="line">					deleteFolder(file);</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					file.delete();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		srcFolder.delete();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="八、多线程面试题"><a href="#八、多线程面试题" class="headerlink" title="八、多线程面试题"></a>八、多线程面试题</h2><p>1.多线程有几种实现方案，分别是哪几种？<br>一般答2种。<br>继承Thread类<br>实现Runnable接口<br>扩展一种：实现Callable接口，这个得和线程池结合。</p>
+<p>2.同步有几种方式，分别是什么？<br>两种。<br>同步代码块<br>同步方法</p>
+<p>3.启动一个线程是run()还是start()?它们的区别？<br>srart()<br>run():封装了被线程执行的代码，直接调用仅仅是普通方法的调用<br>start():启动线程，并有JVM自动调用run()</p>
+<p>4.sleep()和wait()的区别？<br>sleep():必须指定时间。不释放锁<br>wait():可以不指定时间，也可以指定时间。释放锁。</p>
+<p>5.为什么wait(),notify(),notifyAll()都定义在Object类中？<br>因为这些方法的调用时依赖于锁对象的，而而同步代码块的锁对象是任意对象。<br>Object代表的正是任意对象，所以定义在里面。</p>
+<p>6.线程的生命周期图？<br>新建-就绪-运行-死亡<br>新建-就绪-运行-阻塞-就绪-运行-死亡<br>建议：画图解释</p>
+<h2 id="九、设计模式"><a href="#九、设计模式" class="headerlink" title="九、设计模式"></a>九、设计模式</h2><h3 id="1-面向对象思想设计原则"><a href="#1-面向对象思想设计原则" class="headerlink" title="1.面向对象思想设计原则"></a>1.面向对象思想设计原则</h3><p>如果要深入了解面向对象的思想，就必须熟悉总结的面向对象思想的设计原则：<br>（1）单一职责<br>高内聚，低耦合。即每个类应该只有一个职责，对外只提供一种功能，而引起类变化的原因应该只有一个。<br>（2）开闭原则<br>一个对象对扩展开放，对修改关闭。<br>简单的说就是对类的改动是通过增加代码进行的，而不是修改现有代码。(借助抽象和多态)<br>如手机有游戏功能是在原有手机类上增加功能，而不是改动原有的手机类。<br>（3）里氏替换原则<br>在任何父类出现的地方都可以用它的子类代替<br>（4）依赖注入原则<br>要依赖于抽象，不要依赖于具体实现。<br>（5）接口分离原则<br>一个接口不需要提供太多的行为，一个接口应该只提供一种对外的功能，不应该把左右的操作都封装到一个接口中。<br>（6）迪米特原则<br>降低各个对象之间的耦合，提高系统的可维护性。在模块之间应该只通过接口编程，而不理会模块的内部工作原理。它可以使各个模块耦合度降到最低，保证软件的复用。</p>
+<h3 id="2-设计模式"><a href="#2-设计模式" class="headerlink" title="2.设计模式"></a>2.设计模式</h3><p>设计模式就是一套反复使用、多人知晓、经过分类编目的代码设计经验的总结。<br>设计模式是一种思想，与具体语言无关。</p>
+<h4 id="2-1-设计模式分类"><a href="#2-1-设计模式分类" class="headerlink" title="2.1 设计模式分类"></a>2.1 设计模式分类</h4><p>（1）创建型模式 对象的创建<br>简单工厂模式 工厂方法模式 单例设计模式<br>（2）结构型模式 对象的组成(结构)<br>（3）行为型模式 对象的行为<br>2.1.1 简单工厂模式<br>就是创建一个工厂类负责创建某类的实例，这样就可以调用工厂类方法创建对象，不用再去单独创建各个对象，缺点是如果有新的对象增加，就需要不断修改工厂类，不利于后期维护。<br>2.1.2 工厂方法模式<br>创建一个Factory类，碰到具体情况，需要创建什么对象，就再创建一个“什么Factory”类，这样就不影响已有的代码，后期维护容易，增强了系统的扩展性。缺点是需要多编写代码，增加了工作量。<br>2.1.3 单例设计模式<br>单例模式就是要确保类在内存中只有一个对象，该对象必须自动创建，并且对外提供。<br>如何实现？<br>（1）把构造方法私有<br>（2）再成员位置自己创建一个对象<br>（3）通过一个公共的方法提供访问<br>饿汉式：类一加载就创建对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">	//构造私有</span><br><span class="line">	private Student() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//自己造一个</span><br><span class="line">	//静态方法只能访问静态成员变量</span><br><span class="line">	static Student s = new Student();</span><br><span class="line"></span><br><span class="line">	//提供公共的访问方式</span><br><span class="line">	//为了保证外界能够直接使用该方法，加静态</span><br><span class="line">	public static Student getStudent() &#123;</span><br><span class="line">		return s;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>懒汉式：用的时候才去创建对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">	private Teacher() &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static Teacher t = null;</span><br><span class="line"></span><br><span class="line">	public static Teacher getTeacher() &#123;</span><br><span class="line">		if(t==null) &#123;</span><br><span class="line">			t = new Teacher();</span><br><span class="line">		&#125;</span><br><span class="line">		return t;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><p>1.<br>单例模式的思想是神恶魔？请写一个代码体现。<br>开发：饿汉式(是不会出问题的单例模式)<br>面试：懒汉式(可能会出问题的单例模式)</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Wechatpay.png" alt="Jetzilch 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Alipay.jpg" alt="Jetzilch 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-bolt"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/11/javaday23/" rel="next" title="javaday23">
+                <i class="fa fa-chevron-left"></i> javaday23
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/13/javaday25/" rel="prev" title="javaday25">
+                javaday25 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/jet.jpg" alt="Jetzilch">
+            
+              <p class="site-author-name" itemprop="name">Jetzilch</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Jetzilch" title="GitHub &rarr; https://github.com/Jetzilch" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/Jetzilch" title="https://github.com/Jetzilch" rel="noopener" target="_blank">Github</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、JDK5新特性-Lock锁"><span class="nav-number">1.</span> <span class="nav-text">一、JDK5新特性:Lock锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述"><span class="nav-number">1.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-售卖电影票案例演示"><span class="nav-number">1.2.</span> <span class="nav-text">2.售卖电影票案例演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、死锁问题"><span class="nav-number">2.</span> <span class="nav-text">二、死锁问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述-1"><span class="nav-number">2.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-死锁问题代码体现"><span class="nav-number">2.2.</span> <span class="nav-text">2.死锁问题代码体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、线程间的通信"><span class="nav-number">3.</span> <span class="nav-text">三、线程间的通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Java等待唤醒机制"><span class="nav-number">3.1.</span> <span class="nav-text">3.Java等待唤醒机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、线程组"><span class="nav-number">4.</span> <span class="nav-text">四、线程组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述-2"><span class="nav-number">4.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何对线程进行分组"><span class="nav-number">4.2.</span> <span class="nav-text">2.如何对线程进行分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、线程池"><span class="nav-number">5.</span> <span class="nav-text">五、线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述-3"><span class="nav-number">5.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线程池简单案例演示"><span class="nav-number">5.2.</span> <span class="nav-text">2.线程池简单案例演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-多线程实现方式3-Callable-接口-—了解"><span class="nav-number">5.3.</span> <span class="nav-text">3.多线程实现方式3:Callable(接口)—了解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、匿名内部类使用多线程-至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…"><span class="nav-number">6.</span> <span class="nav-text">六、匿名内部类使用多线程(至少要看懂代码，不过这个代码都是你自己写出来的，你要之后再写不出来，也说不过去…)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、定时器"><span class="nav-number">7.</span> <span class="nav-text">七、定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述及案例演示"><span class="nav-number">7.1.</span> <span class="nav-text">1.概述及案例演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-练习"><span class="nav-number">7.2.</span> <span class="nav-text">2.练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、多线程面试题"><span class="nav-number">8.</span> <span class="nav-text">八、多线程面试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、设计模式"><span class="nav-number">9.</span> <span class="nav-text">九、设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-面向对象思想设计原则"><span class="nav-number">9.1.</span> <span class="nav-text">1.面向对象思想设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设计模式"><span class="nav-number">9.2.</span> <span class="nav-text">2.设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-设计模式分类"><span class="nav-number">9.2.1.</span> <span class="nav-text">2.1 设计模式分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">9.3.</span> <span class="nav-text">面试题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jetzilch</span>
+
+  
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+-- >
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

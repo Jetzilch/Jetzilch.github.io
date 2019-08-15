@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入查看密码') !== ''){
+                alert('密码错误，请询问博主');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <meta name="description" content="一、GUI(图形用户接口)1.GUI与CLI的区别GUI(Graphocal User Interface):用图形的方式来显示计算机操作的界面，这样更加方便直观。CLI(Command line User Interface):命令行用户接口，就是常见的Dos命令行操作，需要记忆一些常用命令，操作不直观。 2.awt和swing包的概述java.awt:Abstract Window ToolK">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaday25">
+<meta property="og:url" content="http://jetzilch.com/2019/08/13/javaday25/index.html">
+<meta property="og:site_name" content="Jetzilch">
+<meta property="og:description" content="一、GUI(图形用户接口)1.GUI与CLI的区别GUI(Graphocal User Interface):用图形的方式来显示计算机操作的界面，这样更加方便直观。CLI(Command line User Interface):命令行用户接口，就是常见的Dos命令行操作，需要记忆一些常用命令，操作不直观。 2.awt和swing包的概述java.awt:Abstract Window ToolK">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-14T03:16:32.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaday25">
+<meta name="twitter:description" content="一、GUI(图形用户接口)1.GUI与CLI的区别GUI(Graphocal User Interface):用图形的方式来显示计算机操作的界面，这样更加方便直观。CLI(Command line User Interface):命令行用户接口，就是常见的Dos命令行操作，需要记忆一些常用命令，操作不直观。 2.awt和swing包的概述java.awt:Abstract Window ToolK">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://jetzilch.com/2019/08/13/javaday25/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>javaday25 | Jetzilch</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Jetzilch" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jetzilch</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jetzilch.com/2019/08/13/javaday25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jetzilch">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/jet.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jetzilch">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javaday25
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-13 23:44:55" itemprop="dateCreated datePublished" datetime="2019-08-13T23:44:55+08:00">2019-08-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-14 11:16:32" itemprop="dateModified" datetime="2019-08-14T11:16:32+08:00">2019-08-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、GUI-图形用户接口"><a href="#一、GUI-图形用户接口" class="headerlink" title="一、GUI(图形用户接口)"></a>一、GUI(图形用户接口)</h2><h3 id="1-GUI与CLI的区别"><a href="#1-GUI与CLI的区别" class="headerlink" title="1.GUI与CLI的区别"></a>1.GUI与CLI的区别</h3><p>GUI(Graphocal User Interface):用图形的方式来显示计算机操作的界面，这样更加方便直观。<br>CLI(Command line User Interface):命令行用户接口，就是常见的Dos命令行操作，需要记忆一些常用命令，操作不直观。</p>
+<h3 id="2-awt和swing包的概述"><a href="#2-awt和swing包的概述" class="headerlink" title="2.awt和swing包的概述"></a>2.awt和swing包的概述</h3><p>java.awt:Abstract Window ToolKit(抽象窗口工具包),需要调用本地系统方法实现功能。属重量级控件。(与系统关联性强，所以叫称为重量级，重量级的移植性比较差)<br>javax.swing:在AWT基础上，建立一套图形界面系统，其中提供了更多的组件，而且完全由Java实现，增强了移植性，属轻量级控件。</p>
+<h3 id="3-GUI继承体系"><a href="#3-GUI继承体系" class="headerlink" title="3.GUI继承体系"></a>3.GUI继承体系</h3><p>Component组件可以理解成对象。<br>看图(图以后补…)</p>
+<h3 id="4-Frame"><a href="#4-Frame" class="headerlink" title="4.Frame"></a>4.Frame</h3><p>Component组件的整个体系子类和方法很多，所以我们用到哪个再学哪个。</p>
+<h3 id="5-如何关闭窗口-事件监听机制"><a href="#5-如何关闭窗口-事件监听机制" class="headerlink" title="5.如何关闭窗口(事件监听机制)"></a>5.如何关闭窗口(事件监听机制)</h3><p>事件监听机制：<br>（1）事件源 事件发生的地方<br>（2）事件 就是要发生的事情<br>（3）事件处理 就是针对发生的事件做出的处理方案<br>（4）事件监听 把事件源与事件关联起来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_02;</span><br><span class="line"></span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line">import java.awt.event.WindowListener;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> * 关闭窗口案例</span><br><span class="line"> */</span><br><span class="line">public class FrameDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Frame f = new Frame();</span><br><span class="line">		</span><br><span class="line">		f.setBounds(400,200,400,300);</span><br><span class="line">		</span><br><span class="line">		//让窗口关闭</span><br><span class="line">		//事件源</span><br><span class="line">		//事件：对窗体的处理</span><br><span class="line">		//事件处理：关闭窗口(System.exit(0));</span><br><span class="line">		//事件监听</span><br><span class="line">		f.addWindowListener(new WindowListener() &#123;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowOpened(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowIconified(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowDeiconified(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowDeactivated(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosed(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void windowActivated(WindowEvent e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码实现了窗口关闭的功能，但是WindoListener接口需要重写的方法太多，仅仅需要实现一个功能却要将接口的所有方法重写，很麻烦。<br>解决方案如下：<br>接口(方法比较多)–适配器类(实现接口，仅仅空实现)–实现类(仅重写需要实现的功能)<br>通过适配器类实现接口，空实现所有需要重写的方法，然后创建实现类继承适配器类，实现类中仅需要重写自己想要使用的功能就行。</p>
+<h3 id="6-加入按钮、文本框、文本域实现数据转移案例"><a href="#6-加入按钮、文本框、文本域实现数据转移案例" class="headerlink" title="6.加入按钮、文本框、文本域实现数据转移案例"></a>6.加入按钮、文本框、文本域实现数据转移案例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_02;</span><br><span class="line"></span><br><span class="line">import java.awt.Button;</span><br><span class="line">import java.awt.FlowLayout;</span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.TextArea;</span><br><span class="line">import java.awt.TextField;</span><br><span class="line">import java.awt.event.ActionEvent;</span><br><span class="line">import java.awt.event.ActionListener;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 增加一个按钮、文本框、文本域</span><br><span class="line"> */</span><br><span class="line">public class FrameDemo2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//创建窗体</span><br><span class="line">		Frame f= new Frame(&quot;数据转移程序&quot;);</span><br><span class="line">		//设置窗体属性和布局</span><br><span class="line">		f.setBounds(400,200,400,300);</span><br><span class="line">		f.setLayout(new FlowLayout());</span><br><span class="line">		//创建按钮</span><br><span class="line">		Button bu = new Button(&quot;数据转移&quot;);</span><br><span class="line">		bu.setSize(20, 20);</span><br><span class="line">		//创建文本框</span><br><span class="line">		final TextField tf = new TextField(20);</span><br><span class="line">		//加final是局部内部类访问局部变量，局部变量需要用final修饰</span><br><span class="line">		//上述是视频中的说法，实际操作时，没加final并没有报错，不知道是不是新版本的特性？</span><br><span class="line">		</span><br><span class="line">		//创建文本域</span><br><span class="line">		final TextArea ta = new TextArea(10,40);</span><br><span class="line">		//添加组件到窗体</span><br><span class="line">		f.add(bu);</span><br><span class="line">		f.add(ta);</span><br><span class="line">		f.add(tf);</span><br><span class="line">		//设置窗体关闭</span><br><span class="line">		f.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		//对按钮添加事件</span><br><span class="line">		bu.addActionListener(new ActionListener() &#123;		</span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">				//获取文本框的值</span><br><span class="line">				String tfStr = tf.getText().trim();</span><br><span class="line">				//清空数据</span><br><span class="line">				tf.setText(&quot;&quot;);</span><br><span class="line">				//设置给文本域</span><br><span class="line">				//ta.setText(tfStr);</span><br><span class="line">				ta.append(tfStr+&quot;\n&quot;);</span><br><span class="line">				//获取光标</span><br><span class="line">				tf.requestFocus();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		//显示窗体</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-通过鼠标移动到按钮上更改背景色案例"><a href="#7-通过鼠标移动到按钮上更改背景色案例" class="headerlink" title="7.通过鼠标移动到按钮上更改背景色案例"></a>7.通过鼠标移动到按钮上更改背景色案例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_06;</span><br><span class="line"></span><br><span class="line">import java.awt.Button;</span><br><span class="line">import java.awt.Color;</span><br><span class="line">import java.awt.FlowLayout;</span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.event.MouseAdapter;</span><br><span class="line">import java.awt.event.MouseEvent;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 增加一个按钮、文本框、文本域</span><br><span class="line"> */</span><br><span class="line">public class FrameDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建窗体</span><br><span class="line">		Frame f = new Frame(&quot;数据转移程序&quot;);</span><br><span class="line">		// 设置窗体属性和布局</span><br><span class="line">		f.setBounds(400, 200, 400, 300);</span><br><span class="line">		f.setLayout(new FlowLayout());</span><br><span class="line">		// 创建按钮</span><br><span class="line">		Button redButton = new Button(&quot;红色&quot;);</span><br><span class="line"></span><br><span class="line">		// 添加按钮到窗体</span><br><span class="line">		f.add(redButton);</span><br><span class="line"></span><br><span class="line">		// 设置窗体关闭</span><br><span class="line">		f.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// //对按钮添加动作监听</span><br><span class="line">		// redButton.addActionListener(new ActionListener() &#123;</span><br><span class="line">		// @Override</span><br><span class="line">		// public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">		// f.setBackground(Color.RED);</span><br><span class="line">		// &#125;</span><br><span class="line">		// &#125;);</span><br><span class="line"></span><br><span class="line">		// 对按钮添加鼠标点击事件</span><br><span class="line">		// redButton.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line">		// @Override</span><br><span class="line">		// public void mouseClicked(MouseEvent e) &#123;</span><br><span class="line">		// f.setBackground(Color.RED);</span><br><span class="line">		// &#125;</span><br><span class="line">		// &#125;);</span><br><span class="line"></span><br><span class="line">		// 对按钮添加鼠标加入事件</span><br><span class="line">		redButton.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void mouseEntered(MouseEvent e) &#123;</span><br><span class="line">				f.setBackground(Color.RED);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 对按钮添加鼠标离开退出事件</span><br><span class="line">		redButton.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void mouseExited(MouseEvent e) &#123;</span><br><span class="line">				f.setBackground(Color.WHITE);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 显示窗体</span><br><span class="line">		f.setVisible(true);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8。文本框中只能输入数字案例"><a href="#8。文本框中只能输入数字案例" class="headerlink" title="8。文本框中只能输入数字案例"></a>8。文本框中只能输入数字案例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_07;</span><br><span class="line"></span><br><span class="line">import java.awt.FlowLayout;</span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.Label;</span><br><span class="line">import java.awt.TextField;</span><br><span class="line">import java.awt.event.KeyAdapter;</span><br><span class="line">import java.awt.event.KeyEvent;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">public class FrameDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建窗体对象并设置属性</span><br><span class="line">		Frame f = new Frame(&quot;不能输入非数字字符&quot;);</span><br><span class="line">		f.setBounds(400, 200, 400, 300);</span><br><span class="line">		f.setLayout(new FlowLayout());</span><br><span class="line"></span><br><span class="line">		// 创建标签对象</span><br><span class="line">		Label label = new Label(&quot;请输入你的QQ号码，不能是非数字&quot;);</span><br><span class="line">		TextField tf = new TextField(40);</span><br><span class="line"></span><br><span class="line">		// 添加组件到窗体</span><br><span class="line">		f.add(label);</span><br><span class="line">		f.add(tf);</span><br><span class="line"></span><br><span class="line">		// 设置窗体关闭</span><br><span class="line">		f.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 给文本框添加事件</span><br><span class="line">		tf.addKeyListener(new KeyAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void keyPressed(KeyEvent e) &#123;</span><br><span class="line">				// 如果你取得是数字字符，显示。如果是非数字字符，取消。</span><br><span class="line">				char ch = e.getKeyChar();</span><br><span class="line">				if (!(ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;)) &#123;</span><br><span class="line">					e.consume();</span><br><span class="line">					//视频中是可以实现效果的，但是是实际操作数字和字母还是能输入</span><br><span class="line">					//backspace之类的键倒是变成不能输入了</span><br><span class="line">					//不用太担心，理解思想和主要操作就好，之后基本不会使用到这个。</span><br><span class="line">					//可能是版本问题不同导致。</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 窗体可视化</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-一级菜单"><a href="#9-一级菜单" class="headerlink" title="9.一级菜单"></a>9.一级菜单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_08;</span><br><span class="line"></span><br><span class="line">import java.awt.FlowLayout;</span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.Menu;</span><br><span class="line">import java.awt.MenuBar;</span><br><span class="line">import java.awt.MenuItem;</span><br><span class="line">import java.awt.event.ActionEvent;</span><br><span class="line">import java.awt.event.ActionListener;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line"></span><br><span class="line">public class FrameDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建窗体</span><br><span class="line">		Frame f = new Frame(&quot;一级菜单&quot;);</span><br><span class="line">		// 设置窗体属性和布局</span><br><span class="line">		f.setBounds(400, 200, 400, 300);</span><br><span class="line">		f.setLayout(new FlowLayout());</span><br><span class="line">		</span><br><span class="line">		//创建菜单栏</span><br><span class="line">		MenuBar mb = new MenuBar();</span><br><span class="line">		//创建菜单</span><br><span class="line">		Menu m = new Menu(&quot;文件&quot;);</span><br><span class="line">		//创建菜单项</span><br><span class="line">		MenuItem mi = new MenuItem(&quot;退出系统&quot;);</span><br><span class="line">		</span><br><span class="line">		//添加</span><br><span class="line">		m.add(mi);</span><br><span class="line">		mb.add(m);</span><br><span class="line">		</span><br><span class="line">		//设置菜单栏</span><br><span class="line">		f.setMenuBar(mb);</span><br><span class="line">		</span><br><span class="line">		//添加退出系统功能</span><br><span class="line">		mi.addActionListener(new ActionListener() &#123;</span><br><span class="line">			</span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		//设置窗体退出</span><br><span class="line">		f.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		//窗体可视化</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="10-多级菜单"><a href="#10-多级菜单" class="headerlink" title="10.多级菜单"></a>10.多级菜单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast_09;</span><br><span class="line"></span><br><span class="line">import java.awt.FlowLayout;</span><br><span class="line">import java.awt.Frame;</span><br><span class="line">import java.awt.Menu;</span><br><span class="line">import java.awt.MenuBar;</span><br><span class="line">import java.awt.MenuItem;</span><br><span class="line">import java.awt.event.ActionEvent;</span><br><span class="line">import java.awt.event.ActionListener;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class FrameDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建窗体</span><br><span class="line">		Frame f = new Frame(&quot;一级菜单&quot;);</span><br><span class="line">		// 设置窗体属性和布局</span><br><span class="line">		f.setBounds(400, 200, 400, 300);</span><br><span class="line">		f.setLayout(new FlowLayout());</span><br><span class="line"></span><br><span class="line">		// 创建菜单栏</span><br><span class="line">		MenuBar mb = new MenuBar();</span><br><span class="line">		// 创建菜单</span><br><span class="line">		Menu m1 = new Menu(&quot;文件&quot;);</span><br><span class="line">		Menu m2 = new Menu(&quot;更改名称&quot;);</span><br><span class="line">		// 创建菜单项</span><br><span class="line">		MenuItem mi1 = new MenuItem(&quot;好好学习&quot;);</span><br><span class="line">		MenuItem mi2 = new MenuItem(&quot;天天向上&quot;);</span><br><span class="line">		MenuItem mi3 = new MenuItem(&quot;恢复标题&quot;);</span><br><span class="line">		MenuItem mi4 = new MenuItem(&quot;打开记事本&quot;);</span><br><span class="line">		MenuItem mi5 = new MenuItem(&quot;退出系统&quot;);</span><br><span class="line"></span><br><span class="line">		// 添加</span><br><span class="line">		m1.add(m2);</span><br><span class="line">		m1.add(mi4);</span><br><span class="line">		m1.add(mi5);</span><br><span class="line">		m2.add(mi1);</span><br><span class="line">		m2.add(mi2);</span><br><span class="line">		m2.add(mi3);</span><br><span class="line">		mb.add(m1);</span><br><span class="line"></span><br><span class="line">		// 设置菜单栏</span><br><span class="line">		f.setMenuBar(mb);</span><br><span class="line"></span><br><span class="line">		// 添加打开记事本功能</span><br><span class="line">		mi4.addActionListener(new ActionListener() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">				Runtime r = Runtime.getRuntime();</span><br><span class="line">				try &#123;</span><br><span class="line">					r.exec(&quot;open -a TextEdit&quot;);</span><br><span class="line">				&#125; catch (IOException e1) &#123;</span><br><span class="line">					e1.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 添加退出系统功能</span><br><span class="line">		mi5.addActionListener(new ActionListener() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 设置窗体退出</span><br><span class="line">		f.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">				System.exit(0);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 窗体可视化</span><br><span class="line">		f.setVisible(true);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二、NetBeans"><a href="#二、NetBeans" class="headerlink" title="二、NetBeans"></a>二、NetBeans</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Wechatpay.png" alt="Jetzilch 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/Alipay.jpg" alt="Jetzilch 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-bolt"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/javaday24/" rel="next" title="javaday24">
+                <i class="fa fa-chevron-left"></i> javaday24
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/14/javaday26/" rel="prev" title="javaday26">
+                javaday26 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/jet.jpg" alt="Jetzilch">
+            
+              <p class="site-author-name" itemprop="name">Jetzilch</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Jetzilch" title="GitHub &rarr; https://github.com/Jetzilch" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/Jetzilch" title="https://github.com/Jetzilch" rel="noopener" target="_blank">Github</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、GUI-图形用户接口"><span class="nav-number">1.</span> <span class="nav-text">一、GUI(图形用户接口)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-GUI与CLI的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1.GUI与CLI的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-awt和swing包的概述"><span class="nav-number">1.2.</span> <span class="nav-text">2.awt和swing包的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-GUI继承体系"><span class="nav-number">1.3.</span> <span class="nav-text">3.GUI继承体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Frame"><span class="nav-number">1.4.</span> <span class="nav-text">4.Frame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-如何关闭窗口-事件监听机制"><span class="nav-number">1.5.</span> <span class="nav-text">5.如何关闭窗口(事件监听机制)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-加入按钮、文本框、文本域实现数据转移案例"><span class="nav-number">1.6.</span> <span class="nav-text">6.加入按钮、文本框、文本域实现数据转移案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-通过鼠标移动到按钮上更改背景色案例"><span class="nav-number">1.7.</span> <span class="nav-text">7.通过鼠标移动到按钮上更改背景色案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8。文本框中只能输入数字案例"><span class="nav-number">1.8.</span> <span class="nav-text">8。文本框中只能输入数字案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-一级菜单"><span class="nav-number">1.9.</span> <span class="nav-text">9.一级菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-多级菜单"><span class="nav-number">1.10.</span> <span class="nav-text">10.多级菜单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、NetBeans"><span class="nav-number">2.</span> <span class="nav-text">二、NetBeans</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jetzilch</span>
+
+  
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+-- >
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
